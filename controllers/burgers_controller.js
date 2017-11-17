@@ -5,20 +5,21 @@ var router = express.Router();
 var burger = require('../models/burger.js');
 
 
-router.get('/', (req, res) => {
-    burger.getAll((data) => {
+router.get('/', function (req, res)  {
+    burger.selectAll( function (data) {
+        console.log(data);
         res.render('index', {burgers: data});
     });
 });
 
-router.get('/api/burgers', (req, res) => {
-    burger.getAll((data) => {
+router.get('/api/burgers', function (req, res) {
+    burger.selectAll( function (data) {
     res.json(data);
     });
 });
 
-router.post('/api/devoured/:id', (req, res) => {
-    burger.update('devoured', true, req.params.id, (data) => {
+router.post('/api/devoured/:id', function (req, res) {
+    burger.updateOne('devoured', true, req.params.id, function (data) {
     res.send(`${req.params.id}`);
     });
 });
